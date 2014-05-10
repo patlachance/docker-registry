@@ -5,12 +5,11 @@
 # TO_BUILD:       docker build -rm -t registry .
 # TO_RUN:         docker run -p 5000:5000 registry
 
-FROM ubuntu:13.10
+FROM centos:6.5
 
-RUN apt-get update; \
-    apt-get install -y git-core build-essential python-dev \
-    libevent1-dev python-openssl liblzma-dev wget; \
-    rm /var/lib/apt/lists/*_*
+RUN yum install python-devel libevent-devel python-pip openssl-devel \
+                libffi-devel gcc xz-devel ; \
+    yum clean all
 RUN cd /tmp; wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 RUN cd /tmp; python ez_setup.py; easy_install pip; \
     rm ez_setup.py
